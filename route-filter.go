@@ -29,7 +29,7 @@ type Filter struct {
 	kalmanF              *fkalman.KalmanFilter
 }
 
-func (f *Filter) DeadReconing(prev gps.Packet, curr gps.Packet, kalmanF *fkalman.KalmanFilter) (float64, float64) {
+func (f *Filter) DeadReconing(prev *gps.Packet, curr *gps.Packet) *gps.Packet {
 	if f.kalmanF != nil {
 		if curr.Azimuth == 0 {
 			curr.Azimuth = f.kalmanF.Update(f.kalmanF.X)
@@ -38,7 +38,12 @@ func (f *Filter) DeadReconing(prev gps.Packet, curr gps.Packet, kalmanF *fkalman
 		}
 	}
 
-	return gps.DeadReckoning(prev, curr)
+	lat, lon := gps.DeadReckoning(prev, curr)
+
+	curr.Lat = lat
+	curr.Lon = lon
+
+	return curr
 }
 
 // return false if distance beetwen points greatest then provided threshold

@@ -30,7 +30,7 @@ type Packet struct {
 const earthRadiusM = 6371000
 
 // Return correct lat & lon
-func DeadReckoning(prev Packet, current Packet) (float64, float64) {
+func DeadReckoning(prev *Packet, current *Packet) (float64, float64) {
 	latRad := utils.DegToRad(prev.Lat)
 	lonRad := utils.DegToRad(prev.Lon)
 	bearingRad := utils.DegToRad(current.Azimuth)
