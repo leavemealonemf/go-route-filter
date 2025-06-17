@@ -1,6 +1,7 @@
 package grfrf
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/leavemealonemf/go-route-filter/fkalman"
@@ -49,6 +50,7 @@ func (f *Filter) DeadReconing(prev *gps.Packet, curr *gps.Packet) *gps.Packet {
 // return false if distance beetwen points greatest then provided threshold
 func (f *Filter) CompareDistanceBetweenPoints(a, b *gps.Point, distanseThresholdM int) bool {
 	distance := gps.CalculateDistance(a, b)
+	fmt.Println("CALCULATED DISTANCE", distance)
 	return distance <= float64(distanseThresholdM)
 }
 
