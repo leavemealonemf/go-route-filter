@@ -74,7 +74,7 @@ func CalculateDistance(point1, point2 *Point) float64 {
 
 	// distance := earthRadiusM * c
 
-	p1 := orb.Point{point1.Lat, point1.Lon}
-	p2 := orb.Point{point2.Lat, point2.Lon}
+	p1 := orb.Point{point1.Lon, point1.Lat}
+	p2 := orb.Point{point2.Lon, point2.Lat}
 	return geo.Distance(p1, p2)
 }
