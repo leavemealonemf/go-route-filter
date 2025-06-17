@@ -50,20 +50,24 @@ func DeadReckoning(prev *Packet, current *Packet) (float64, float64) {
 	return utils.RadToDeg(newLatRad), utils.RadToDeg(newLonRad)
 }
 
-func CalculateDistance(a, b *Point) float64 {
-	lat1Rad := utils.DegToRad(a.Lat)
-	lon1Rad := utils.DegToRad(a.Lon)
-	lat2Rad := utils.DegToRad(b.Lat)
-	lon2Rad := utils.DegToRad(b.Lon)
+func CalculateDistance(point1, point2 *Point) float64 {
+	if point1.Lat == point2.Lat && point1.Lon == point2.Lon {
+		return 0
+	}
+
+	lat1Rad := utils.DegToRad(point1.Lat)
+	lon1Rad := utils.DegToRad(point1.Lon)
+	lat2Rad := utils.DegToRad(point2.Lat)
+	lon2Rad := utils.DegToRad(point2.Lon)
 
 	deltaLat := lat2Rad - lat1Rad
 	deltaLon := lon2Rad - lon1Rad
 
-	a_calc := math.Sin(deltaLat/2)*math.Sin(deltaLat/2) +
+	haversineA := math.Sin(deltaLat/2)*math.Sin(deltaLat/2) +
 		math.Cos(lat1Rad)*math.Cos(lat2Rad)*
 			math.Sin(deltaLon/2)*math.Sin(deltaLon/2)
 
-	c := 2 * math.Atan2(math.Sqrt(a_calc), math.Sqrt(1-a_calc))
+	c := 2 * math.Atan2(math.Sqrt(haversineA), math.Sqrt(1-haversineA))
 
 	distance := earthRadiusM * c
 
