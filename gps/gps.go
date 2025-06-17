@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/leavemealonemf/go-route-filter/utils"
+	"github.com/paulmach/orb"
+	"github.com/paulmach/orb/geo"
 )
 
 type Point struct {
@@ -51,25 +53,28 @@ func DeadReckoning(prev *Packet, current *Packet) (float64, float64) {
 }
 
 func CalculateDistance(point1, point2 *Point) float64 {
-	if point1.Lat == point2.Lat && point1.Lon == point2.Lon {
-		return 0
-	}
 
-	lat1Rad := utils.DegToRad(point1.Lat)
-	lon1Rad := utils.DegToRad(point1.Lon)
-	lat2Rad := utils.DegToRad(point2.Lat)
-	lon2Rad := utils.DegToRad(point2.Lon)
+	// if point1.Lat == point2.Lat && point1.Lon == point2.Lon {
+	// 	return 0
+	// }
 
-	deltaLat := lat2Rad - lat1Rad
-	deltaLon := lon2Rad - lon1Rad
+	// lat1Rad := utils.DegToRad(point1.Lat)
+	// lon1Rad := utils.DegToRad(point1.Lon)
+	// lat2Rad := utils.DegToRad(point2.Lat)
+	// lon2Rad := utils.DegToRad(point2.Lon)
 
-	haversineA := math.Sin(deltaLat/2)*math.Sin(deltaLat/2) +
-		math.Cos(lat1Rad)*math.Cos(lat2Rad)*
-			math.Sin(deltaLon/2)*math.Sin(deltaLon/2)
+	// deltaLat := lat2Rad - lat1Rad
+	// deltaLon := lon2Rad - lon1Rad
 
-	c := 2 * math.Atan2(math.Sqrt(haversineA), math.Sqrt(1-haversineA))
+	// haversineA := math.Sin(deltaLat/2)*math.Sin(deltaLat/2) +
+	// 	math.Cos(lat1Rad)*math.Cos(lat2Rad)*
+	// 		math.Sin(deltaLon/2)*math.Sin(deltaLon/2)
 
-	distance := earthRadiusM * c
+	// c := 2 * math.Atan2(math.Sqrt(haversineA), math.Sqrt(1-haversineA))
 
-	return distance
+	// distance := earthRadiusM * c
+
+	p1 := orb.Point{point1.Lat, point1.Lon}
+	p2 := orb.Point{point2.Lat, point2.Lon}
+	return geo.Distance(p1, p2)
 }
