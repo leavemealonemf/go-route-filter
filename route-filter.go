@@ -3,9 +3,9 @@ package grfrf
 import (
 	"log"
 
-	"github.com/leavemealonemf/route-filter/fkalman"
-	glocation "github.com/leavemealonemf/route-filter/google-geolocation"
-	"github.com/leavemealonemf/route-filter/gps"
+	"github.com/leavemealonemf/go-route-filter/fkalman"
+	glocation "github.com/leavemealonemf/go-route-filter/google-geolocation"
+	"github.com/leavemealonemf/go-route-filter/gps"
 	"googlemaps.github.io/maps"
 )
 

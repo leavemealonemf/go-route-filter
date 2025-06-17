@@ -4,7 +4,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/leavemealonemf/route-filter/utils"
+	"github.com/leavemealonemf/go-route-filter/utils"
 )
 
 type Point struct {

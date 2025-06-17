@@ -1,4 +1,4 @@
-module github.com/leavemealonemf/route-filter
+module github.com/leavemealonemf/go-route-filter
 
 go 1.23.9
 
